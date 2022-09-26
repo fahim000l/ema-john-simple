@@ -1,0 +1,131 @@
+.product-container {
+    /* display: flex;
+    justify-content: space-between; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 110px;
+}
+
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin-top: 200px;
+    margin-left: 200px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid gray;
+    width: 400px;
+    height: 608px;
+    border-radius: 10px;
+    /* padding: 10px; */
+    /* text-align: start; */
+}
+
+.card img {
+    width: 400px;
+    border-radius: 10px;
+}
+
+.card-detail {
+    text-align: start;
+    width: 300px;
+    padding-left: 20px;
+    padding-right: 20px;
+    /* padding-left: 100px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* text-overflow: inherit; */
+    margin: 0px;
+
+}
+
+.card-detail p {
+    margin: 0px;
+}
+
+.card-detail h4 {
+    margin: 2px;
+}
+
+.card button {
+    background-color: #FFE0B3;
+    border: none;
+    /* padding: 10px; */
+    width: 100%;
+    /* border: 2px solid gray; */
+    border-radius: 0px 0px 10px 10px;
+    display: flex;
+    align-items: center;
+    font-size: large;
+    font-weight: bolder;
+    justify-content: space-evenly;
+
+}
+
+.card button:hover {
+    background-color: orangered;
+    color: whitesmoke;
+
+}
+
+.shopping-cart {
+    background-color: #FFE0B3;
+    padding: 20px;
+    width: 300px;
+    position: fixed;
+    top: 90px;
+    left: 1565px;
+    height: 900px;
+    /* position: -webkit-sticky;
+    position: sticky;
+    top: 0; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.shopping-cart div h3 {
+    font-size: x-large;
+}
+
+.cart {
+    text-align: start;
+    font-size: large;
+}
+
+.clr-cart {
+    background-color: #FF3030;
+    padding: 15px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: large;
+    font-weight: bolder;
+}
+
+.rvw-order {
+    background-color: #FF9900;
+    padding: 15px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: large;
+    font-weight: bolder;
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
+
+    color: white;
+}
