@@ -73,6 +73,7 @@
 .card button:hover {
     background-color: orangered;
     color: whitesmoke;
+    cursor: pointer;
 
 }
 
@@ -110,6 +111,7 @@
     color: white;
     font-size: large;
     font-weight: bolder;
+    cursor: pointer;
 }
 
 .rvw-order {
@@ -121,6 +123,7 @@
     color: white;
     font-size: large;
     font-weight: bolder;
+    cursor: pointer;
 }
 
 .btns {

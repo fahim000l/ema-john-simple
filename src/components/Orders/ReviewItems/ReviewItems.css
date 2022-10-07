@@ -1,0 +1,70 @@
+/* #reviewItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+.review-item-img-container {
+    width: 20%;
+}
+
+.review-item-body-container {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5px;
+    padding: bottom 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: start;
+    font-weight: bolder;
+}
+
+.reviewItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid gray;
+    border-radius: 8px;
+    /* margin-left: ; */
+    position: relative;
+    left: 50%;
+    margin-top: 50px;
+}
+
+.reviewItem img {
+
+    /* width: 91px; */
+    width: 100%;
+    /* height: 91px; */
+    height: 100%;
+    border-radius: 8px;
+
+}
+
+.delete-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.review-item-details-container p {
+    margin: 0;
+}
+
+.delete-btn {
+    border-radius: 50%;
+    padding: 20px;
+    border: 0;
+    color: #EB5757;
+    background: rgba(235, 87, 87, 0.3);
+
+
+}
+
+.delete-btn:hover {
+    background: rgba(165, 13, 13, 0.5);
+    cursor: pointer;
+    color: #d60a0a;
+}

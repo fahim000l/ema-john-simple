@@ -1,0 +1,10 @@
+.order-container {
+    padding: 100px;
+}
+
+.empty-msg {
+    text-align: center;
+    position: relative;
+    left: 50%;
+    top: 50%;
+}

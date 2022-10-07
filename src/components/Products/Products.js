@@ -1,20 +1,16 @@
 import { faDeleteLeft, faShoppingCart, faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { addToDb, getCartFromDb } from '../../utilities/fakedb';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { addToDb, deleteShoppingCart, getCartFromDb } from '../../utilities/fakedb';
 import './Products.css'
 
 
 const Products = () => {
 
+    const products = useLoaderData();
 
-    const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    useEffect(() => {
-        fetch('products.json')
-            .then(res => res.json())
-            .then(data => setProducts(data));
-    }, [])
 
     useEffect(() => {
         let restoreCart = getCartFromDb();
@@ -30,6 +26,10 @@ const Products = () => {
         }
         setCart(savedCard);
     }, [products])
+    let handleDeleteCart = () => {
+        deleteShoppingCart();
+        setCart([]);
+    }
 
     let handleAddToCart = (selectedProduct) => {
         // console.log(product);
@@ -71,7 +71,8 @@ const Products = () => {
             </div>
             {
                 <ShoppingCart
-                    products={cart}
+                    cart={cart}
+                    handleDeleteCart={handleDeleteCart}
                 ></ShoppingCart>
             }
         </div>
@@ -101,20 +102,24 @@ const Product = (props) => {
     );
 };
 
-const ShoppingCart = ({ products }) => {
+const ShoppingCart = ({ cart, handleDeleteCart }) => {
+    const navigate = useNavigate();
+    const gotoOrderReview = () => {
+        navigate('/OrderReview');
+    }
 
 
-    console.log(products);
+    console.log(cart);
     let quantity = 0;
     // for (const product of products) {
     //     product.quantity = 1;
     // }
-    for (const product of products) {
+    for (const product of cart) {
         // product.quantity = 1;
         quantity = quantity + product.quantity;
     }
-    const totalPrice = (products.reduce((first, second) => first + second.price, 0)) * quantity;
-    const totalShipping = products.reduce((first, second) => first + second.shipping, 0);
+    const totalPrice = (cart.reduce((first, second) => first + second.price, 0)) * quantity;
+    const totalShipping = cart.reduce((first, second) => first + second.shipping, 0);
     const tax = parseFloat((totalPrice * 0.1).toFixed(3));
 
     // grandTotal = grandTotal.toFixed(3);
@@ -131,12 +136,12 @@ const ShoppingCart = ({ products }) => {
                 <h4>Grand Total: $ {(totalPrice + totalShipping + tax).toFixed(3)}</h4>
             </div>
             <div className='btns'>
-                <button className='clr-cart'>Clear Cart <FontAwesomeIcon icon={faDeleteLeft}></FontAwesomeIcon></button>
-                <button className='rvw-order'>Review Order <FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter}></FontAwesomeIcon></button>
+                <button onClick={handleDeleteCart} className='clr-cart'>Clear Cart <FontAwesomeIcon icon={faDeleteLeft}></FontAwesomeIcon></button>
+                <button onClick={gotoOrderReview} className='rvw-order'>Review Order <FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter}></FontAwesomeIcon></button>
             </div>
         </div>
     );
 };
 
 
-export default Products;
+export { Products, ShoppingCart };
