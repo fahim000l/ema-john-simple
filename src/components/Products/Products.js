@@ -1,31 +1,61 @@
-import { faDeleteLeft, faShoppingCart, faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
+import { faDeleteLeft, faShoppingCart, faUpRightAndDownLeftFromCenter, faShippingFast } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { addToDb, deleteShoppingCart, getCartFromDb } from '../../utilities/fakedb';
 import './Products.css'
 
 
 const Products = () => {
 
-    const products = useLoaderData();
 
     const [cart, setCart] = useState([]);
+    const [count, setCount] = useState(0);
+    const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState(10);
+
+    const totalPage = Math.ceil(count / size);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/products?page=${page}&size=${size}`)
+            .then(res => res.json())
+            .then(data => {
+                setCount(data.count);
+                setProducts(data.products);
+            })
+    }, [page, size]);
+
 
     useEffect(() => {
         let restoreCart = getCartFromDb();
         let savedCard = [];
-        // console.log(restoreCart);
-        for (const id in restoreCart) {
-            let addedProduct = products.find(product => product.id === id);
-            if (addedProduct) {
-                addedProduct.quantity = restoreCart[id];
-                savedCard.push(addedProduct);
-                // console.log(savedCard);
-            }
-        }
-        setCart(savedCard);
-    }, [products])
+
+        const ids = Object.keys(restoreCart);
+        console.log(ids);
+
+        fetch('http://localhost:5000/productsbyid', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(ids)
+
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                for (const id in restoreCart) {
+                    let addedProduct = data.find(product => product._id === id);
+                    if (addedProduct) {
+                        addedProduct.quantity = restoreCart[id];
+                        savedCard.push(addedProduct);
+                        // console.log(savedCard);
+                    }
+                }
+                setCart(savedCard);
+            })
+    }, [])
     let handleDeleteCart = () => {
         deleteShoppingCart();
         setCart([]);
@@ -34,14 +64,14 @@ const Products = () => {
     let handleAddToCart = (selectedProduct) => {
         // console.log(product);
         let newCart = [];
-        const exists = cart.find(product => product.id === selectedProduct.id)
+        const exists = cart.find(product => product._id === selectedProduct._id)
         if (!exists) {
             selectedProduct.quantity = 1;
             newCart = [...cart, selectedProduct];
 
         }
         else {
-            const rest = cart.filter(product => product.id !== selectedProduct.id);
+            const rest = cart.filter(product => product._id !== selectedProduct._id);
             exists.quantity = exists.quantity + 1;
             newCart = [...rest, exists];
         }
@@ -49,7 +79,7 @@ const Products = () => {
 
 
         setCart(newCart);
-        addToDb(selectedProduct.id)
+        addToDb(selectedProduct._id)
 
     }
 
@@ -58,7 +88,7 @@ const Products = () => {
             <div className='card-container'>
                 {
                     products.map(product => <Product
-                        key={product.id}
+                        key={product._id}
                         img={product.img}
                         name={product.name}
                         price={product.price}
@@ -75,6 +105,24 @@ const Products = () => {
                     handleDeleteCart={handleDeleteCart}
                 ></ShoppingCart>
             }
+            <div className='pagination'>
+                {
+                    [...Array(totalPage).keys()].map(number => <button
+                        key={number}
+                        number={number}
+                        className={number === page && 'selected'}
+                        onClick={() => setPage(number)}
+                    >
+                        {number}
+                    </button>)
+                }
+                <select onChange={(event) => setSize(event.target.value)}>
+                    <option value="5">5</option>
+                    <option value="10" selected >10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
         </div>
     );
 };
@@ -138,6 +186,7 @@ const ShoppingCart = ({ cart, handleDeleteCart }) => {
             <div className='btns'>
                 <button onClick={handleDeleteCart} className='clr-cart'>Clear Cart <FontAwesomeIcon icon={faDeleteLeft}></FontAwesomeIcon></button>
                 <button onClick={gotoOrderReview} className='rvw-order'>Review Order <FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter}></FontAwesomeIcon></button>
+                <button onClick={() => navigate('/Shipping')} className='shipment'>Procceed Shipment <FontAwesomeIcon icon={faShippingFast}></FontAwesomeIcon></button>
             </div>
         </div>
     );

@@ -2,8 +2,31 @@
     /* display: flex;
     justify-content: space-between; */
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-columns: repeat(2, 1fr); */
+    grid-template-columns: 1fr 1fr;
     gap: 110px;
+}
+
+.pagination {
+    padding-bottom: 100px;
+}
+
+.pagination button {
+    margin-left: 20px;
+    width: 40px;
+    padding: 10px;
+}
+
+select {
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.pagination .selected {
+    background-color: goldenrod;
+    border: gold;
+    width: 40px;
+    padding: 10px;
 }
 
 
@@ -81,17 +104,19 @@
     background-color: #FFE0B3;
     padding: 20px;
     width: 300px;
-    position: fixed;
-    top: 90px;
+    /* position: fixed;
+    top: 90px; */
     /* left: 1565px; */
-    right: 0;
-    height: 900px;
+    /* right: 0;
+    height: 900px; */
     /* position: -webkit-sticky;
     position: sticky;
     top: 0; */
+    position: sticky;
+    top: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
 }
 
 .shopping-cart div h3 {
@@ -117,6 +142,18 @@
 
 .rvw-order {
     background-color: #FF9900;
+    padding: 15px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: large;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.shipment {
+    background-color: green;
     padding: 15px;
     border: none;
     margin-top: 20px;

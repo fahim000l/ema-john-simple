@@ -2,10 +2,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Abouts from './components/Abouts/Abouts';
 import Inventory from './components/Inventory/Inventory';
+import LogIn from './components/LogIn/LogIn';
 import Orders from './components/Orders/Orders';
 import { Products, ShoppingCart, Product } from './components/Products/Products';
+import Register from './components/Register/Register';
+import Shipping from './components/Shipping/Shipping';
 import Main from './Layout/Main';
 import { ProductsAndCartLoader } from './Loaders/ProductsAndCartLoader';
+import PrivateRoute from './routes/PrivateRoute';
 
 function App() {
   const router = createBrowserRouter([
@@ -16,7 +20,6 @@ function App() {
         {
           path: '/Shop',
           element: <Products></Products>,
-          loader: () => fetch('products.json'),
         },
         {
           path: '/OrderReview',
@@ -25,7 +28,19 @@ function App() {
         },
         {
           path: '/ManageInventory',
-          element: <Inventory></Inventory>
+          element: <PrivateRoute><Inventory></Inventory></PrivateRoute>
+        },
+        {
+          path: '/Shipping',
+          element: <PrivateRoute><Shipping></Shipping></PrivateRoute>
+        },
+        {
+          path: '/LogIn',
+          element: <LogIn></LogIn>
+        },
+        {
+          path: '/Register',
+          element: <Register></Register>
         }
       ]
     },

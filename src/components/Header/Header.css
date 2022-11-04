@@ -4,17 +4,31 @@
     align-items: center;
     background-color: #1C2B35;
     color: #FFFFFF;
-    padding-left: 200px;
-    padding-right: 200px;
     padding-top: 20px;
     padding-bottom: 20px;
+    /* padding-left: 200px;
+    padding-right: 1000px;
+    padding-top: 20px;
+    padding-bottom: 20px; */
     /* position: fixed; */
-    width: 1600px;
+    /* width: 1600px; */
+    width: 100%;
+}
+
+.nav-bar img {
+    margin-left: 100px;
 }
 
 .nav-list {
     display: flex;
-    justify-content: space-evenly;
+    /* width: 100%; */
+    margin-right: 200px;
+    justify-content: space-between;
+}
+
+.activeStyle {
+    background-color: aqua;
+    color: black;
 }
 
 
@@ -33,4 +47,15 @@
 .nav-list a:hover {
     background-color: #FFFFFF;
     color: black;
+}
+
+.logout-btn {
+    padding: 10px 50px;
+    background-color: gray;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: x-large;
+    font-weight: bolder;
 }
